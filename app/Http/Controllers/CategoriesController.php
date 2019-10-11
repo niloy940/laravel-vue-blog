@@ -14,7 +14,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        // return Category::latest()->get();
     }
 
     /**
@@ -35,7 +35,11 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $this->validate($request, ['name' => 'required']);
+
+        $category = Category::create($attributes);
+
+        return "category created!";
     }
 
     /**

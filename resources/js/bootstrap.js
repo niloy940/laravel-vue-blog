@@ -3,6 +3,21 @@ window._ = require('lodash');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
+import Form from 'vform';
+
+import {
+  HasError,
+  AlertError,
+  AlertErrors,
+  AlertSuccess
+} from 'vform';
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+Vue.component(AlertErrors.name, AlertErrors)
+Vue.component(AlertSuccess.name, AlertSuccess)
+
+window.Form = Form;
 
 window.VueRouter = VueRouter;
 

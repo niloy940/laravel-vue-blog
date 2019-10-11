@@ -1,5 +1,7 @@
 <?php
 
+use App\Category;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', 'PostsController@index');
+Route::get('/categories', function () {
+    return Category::latest()->get();
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('{any?}', 'HomeController@index');
+
+// Route::get('/categories', 'CategoriesController@index');
+Route::post('/categories', 'CategoriesController@store');
