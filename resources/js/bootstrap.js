@@ -3,8 +3,25 @@ window._ = require('lodash');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
+import Vuex from 'vuex';
 import Form from 'vform';
+// ES6 Modules or TypeScript sweet alert
+import Swal from 'sweetalert2';
 
+window.Swal = Swal;
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+window.Toast = Toast;
+
+
+
+// vform
 import {
   HasError,
   AlertError,
@@ -16,6 +33,8 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertErrors.name, AlertErrors)
 Vue.component(AlertSuccess.name, AlertSuccess)
+////
+
 
 window.Form = Form;
 
@@ -23,6 +42,9 @@ window.VueRouter = VueRouter;
 
 window.Vue = Vue;
 Vue.use(VueRouter);
+
+window.Vuex = Vuex;
+Vue.use(Vuex);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

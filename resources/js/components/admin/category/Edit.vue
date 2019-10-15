@@ -8,17 +8,16 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                           <div class="card-header">
-                            <h3 class="card-title">Add New Category</h3>
+                            <h3 class="card-title">Edit Category</h3>
                           </div>
                           <!-- /.card-header -->
 
                           <!-- form start -->
-                          <form @submit.prevent="addCategory" @keydown="form.errors.clear()" role="form">
+                          <form @submit.prevent="updateCategory" @keydown="form.errors.clear()" role="form">
                             <div class="card-body">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">New Category</label>
-                                <input v-model="form.name" type="text" class="form-control" id="categoryId" placeholder="category name" :class="{ 'is-invalid': form.errors.has('name') }">
-                                <!-- <span v-if="form.errors.has('name')" v-text="form.errors.get('name')" class="danger"></span> -->
+                                <label for="exampleInputEmail1">Edit Category</label>
+                                <input v-model="form.name" type="text" class="form-control" id="categoryId" :class="{ 'is-invalid': form.errors.has('name') }">
                                 <has-error :form="form" field="name"></has-error>
                               </div>
                             </div>
@@ -37,8 +36,11 @@
 </template>
 
 <script>
+import Category from '../models/Category';
 
   export default {
+    name: 'Edit',
+
     data() {
         return {
             form: new Form({ name: '' })
@@ -46,20 +48,23 @@
     },
 
     methods: {
-      addCategory() {
+      updateCategory(id) {
         this.form
-          .post('/categories')
+          .patch('/categories/' + this.$route.params.category_id)
           .then(response => {
             this.$router.push('/category-list');
 
             Toast.fire({
               type: 'success',
-              title: 'Category added successfully!'
+              title: 'Category updated successfully!'
             })
           });
-
-          // this.form.reset();
       }
+    },
+
+    mounted() {
+      Category.find(this.$route.params.category_id)
+                .then(({data}) => this.form.fill(data));
     }
   }
 </script>

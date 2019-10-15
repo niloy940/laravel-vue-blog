@@ -18,19 +18,23 @@
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                          <th>Id</th>
+                          <th>Sl</th>
                           <th>Category Name</th>
+                          <th>Date</th>
                           <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr v-for="category in categories">
-                          <td v-text="category.id"></td>
+                        <tr v-for="(category, index) in getAllCategory">
+                          <td v-text="index+1"></td>
                           <td v-text="category.name"></td>
+                          <td>{{ category.created_at | ago }}</td>
                           <td>
-                              <a class="btn btn-primary rounded-circle" href="#">Edit</a>
-                              <a class="btn btn-danger rounded-circle" href="#">Delete</a>
+                            <form @submit.prevent="deleteCategory(category.id)">
+                              <router-link class="btn btn-primary rounded-circle" :to="`/edit-category/${category.id}`">Edit</router-link>
+                              <button type="submit" class="btn btn-danger rounded-circle">Delete</button>
+                            </form>
                           </td>
                         </tr>
                     </tbody>
@@ -46,11 +50,13 @@
 </template>
 
 <script>
-  import Category from '../models/Category';
+  import moment from 'moment';
   import create from './Create';
 
   export default{
-    data() {
+    name: 'Index',
+
+/*    data() {
         return {
           categories: []
         };
@@ -58,7 +64,45 @@
 
     created() {
         Category.all(categories => this.categories = categories);
-    }
+    }*/
+
+    data() {
+      return {
+        form: new Form()
+      };
+    },
+
+    // using vuex for displaying all category
+    mounted() {
+      this.$store.dispatch('allCategory');
+    },
+
+    computed: {
+      getAllCategory() {
+        return this.$store.getters.getCategory;
+      }
+    },
+
+    methods: {
+      deleteCategory(id) {
+        this.form
+          .delete('/categories/' + id)
+          .then(()=> {
+            this.$store.dispatch('allCategory');
+
+            Toast.fire({
+              type: 'success',
+              title: 'Category deleted successfully!'
+            });
+          });
+      }
+    },
+
+    filters:{
+      ago(date) {
+        return moment(date).format('MMM Do YY');
+      }
+    },
   }
 </script>
 

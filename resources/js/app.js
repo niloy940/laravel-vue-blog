@@ -1,5 +1,6 @@
 import './bootstrap';
 import routes from './routes';
+import storeData from './store/index';
 import AdminMaster from './components/admin/AdminMaster';
 
 // const files = require.context('./', true, /\.vue$/i)
@@ -8,8 +9,14 @@ import AdminMaster from './components/admin/AdminMaster';
 Vue.component('admin-main', AdminMaster);
 
 
+const store = new Vuex.Store(
+    storeData
+);
+
 let app = new Vue({
     el: '#app',
 
-    router: new VueRouter(routes)
+    router: new VueRouter(routes),
+
+    store,
 });

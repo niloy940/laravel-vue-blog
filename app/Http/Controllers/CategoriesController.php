@@ -14,7 +14,13 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        // return Category::latest()->get();
+        $categories = Category::all();
+
+        return $categories;
+
+        /*return response()->json[(
+            'categories' => $categories
+        ), 200];*/
     }
 
     /**
@@ -50,7 +56,7 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return $category;
     }
 
     /**
@@ -73,7 +79,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $attributes = $this->validate($request, ['name' => 'required']);
+
+        $category->updateCategory($attributes);
     }
 
     /**
@@ -84,6 +92,6 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->deleteProject();
     }
 }
