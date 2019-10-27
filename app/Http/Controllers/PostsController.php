@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('user', 'category')->latest()->get();
         return $posts;
     }
 
@@ -34,9 +34,11 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
-        //
+        $attributes = $post->validatePost($request);
+        $attributes['photo'] = $post->imageProcessing($request);
+        $post->addPost($attributes);
     }
 
     /**
@@ -81,6 +83,6 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->deletePost();
     }
 }

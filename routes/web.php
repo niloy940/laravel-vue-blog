@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('/categories', function () {
-    return Category::latest()->get();
-});*/
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -32,3 +28,6 @@ Route::post('/categories', 'CategoriesController@store');
 Route::delete('/categories/{category}', 'CategoriesController@destroy');
 Route::patch('/categories/{category}', 'CategoriesController@update');
 Route::get('/categories/{category}', 'CategoriesController@show');
+
+//post
+Route::resource('posts', 'PostsController');

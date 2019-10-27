@@ -5,6 +5,12 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import Vuex from 'vuex';
 import Form from 'vform';
+
+//toast-ui/vue-editor
+import 'tui-editor/dist/tui-editor.css';
+import 'tui-editor/dist/tui-editor-contents.css';
+import 'codemirror/lib/codemirror.css';
+
 // ES6 Modules or TypeScript sweet alert
 import Swal from 'sweetalert2';
 
@@ -45,6 +51,7 @@ Vue.use(VueRouter);
 
 window.Vuex = Vuex;
 Vue.use(Vuex);
+
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

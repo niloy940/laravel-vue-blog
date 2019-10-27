@@ -9,7 +9,7 @@ class Category extends Model
 {
     protected $guarded = [];
 
-    public function deleteProject()
+    public function deleteCategory()
     {
         $this->delete();
     }

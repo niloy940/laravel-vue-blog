@@ -98,7 +98,7 @@
       }
     },
 
-    filters:{
+    filters: {
       ago(date) {
         return moment(date).format('MMM Do YY');
       }
@@ -107,11 +107,6 @@
 </script>
 
 <style scoped>
-  .fixed{
-    position: fixed;
-    width: auto;
-    border: 3px solid #73AD21;
-  }
   .tc{
     color: #fff;
     text-decoration: none;
