@@ -16,15 +16,15 @@
                           <form @submit.prevent="updateCategory" @keydown="form.errors.clear()" role="form">
                             <div class="card-body">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Edit Category</label>
-                                <input v-model="form.name" type="text" class="form-control" id="categoryId" :class="{ 'is-invalid': form.errors.has('name') }">
+                                <label for="editCategory">Edit Category</label>
+                                <input v-model="form.name" type="text" class="form-control" id="name" :class="{ 'is-invalid': form.errors.has('name') }">
                                 <has-error :form="form" field="name"></has-error>
                               </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                              <button :disabled="form.errors.any()" type="submit" class="btn btn-primary">Save</button>
+                              <button :disabled="form.errors.any()" type="submit" class="btn btn-primary">Update</button>
                             </div>
                           </form>
                         </div>

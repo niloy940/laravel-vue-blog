@@ -1,10 +1,10 @@
 class Category {
-    static all(context) {
+    static all(context, mutation) {
         return axios.get('/categories')
             // .then(({data}) => then(data));
             .then(response => {
                 let payload = response.data
-                context.commit('category', payload)
+                context.commit(mutation, payload)
             })
             .catch(error => console.log(error))
     }

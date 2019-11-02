@@ -14,7 +14,7 @@ use App\Category;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('public.layouts.master');
 });
 
 Auth::routes();
@@ -22,7 +22,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('{any?}', 'HomeController@index');
 
-// Route::get('/categories', 'CategoriesController@index');
 Route::get('/categories', 'CategoriesController@index');
 Route::post('/categories', 'CategoriesController@store');
 Route::delete('/categories/{category}', 'CategoriesController@destroy');

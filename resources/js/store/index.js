@@ -5,6 +5,7 @@ export default {
     state: {
         categories: [],
         posts: [],
+        post: []
     },
 
     getters: {
@@ -14,16 +15,24 @@ export default {
 
         getPost(state) {
             return state.posts;
+        },
+
+        getSinglePost(state) {
+            return state.post;
         }
     },
 
     actions: {
         allCategory(context) {
-            Category.all(context);
+            Category.all(context, 'category');
         },
 
         allPost(context) {
-            Post.all(context);
+            Post.all(context, 'post');
+        },
+
+        getPostById(context, id) {
+            Post.get(context, id, 'singlePost');
         },
     },
 
@@ -34,6 +43,10 @@ export default {
 
         post(state, payload) {
             return state.posts = payload;
+        },
+
+        singlePost(state, payload) {
+            return state.post = payload;
         }
     },
 }

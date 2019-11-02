@@ -91,7 +91,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button :disabled="form.errors.any()" type="submit" class="btn btn-primary">Save</button>
+                  <button :disabled="form.errors.any() || disable" type="submit" class="btn btn-primary">Save</button>
                 </div>
               </form>
             </div>
@@ -120,7 +120,8 @@ export default {
         user_id: ""
       }),
 
-      called: false
+      called: false,
+      disable: false
     };
   },
 
@@ -155,24 +156,25 @@ export default {
       this.form.errors.clear();
 
       let file = event.target.files[0];
-      console.log(file);
-      if ((file.size > 1048576) || (!file.type.includes('image'))) {
+      // console.log(file);
+      if ((file.size > 1000000) || (!file.type.includes('image'))) {
         Swal.fire({
           type: "error",
           title: "Opps...",
-          text: "Please choose a Photo & size < 1MB!"
+          text: "Please choose a Photo & size <= 1MB!"
         });
 
         this.called = false;
+        this.disable = true;
         file.name = '';
 
       } else {
         this.called = true;
-        let reader = new FileReader();
+        this.disable = false
 
+        let reader = new FileReader();
         reader.onload = event => {
           this.form.photo = event.target.result;
-          // console.log(event.target.result);
         };
 
         reader.readAsDataURL(file);

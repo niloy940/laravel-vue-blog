@@ -6,6 +6,12 @@ import PostList from './components/admin/post/List';
 import AddPost from './components/admin/post/Create';
 import EditPost from './components/admin/post/Edit';
 
+//public -fronend
+import PublicHome from './components/public/PublicHome';
+import AllBlogPosts from './components/public/blog/AllPosts';
+import SingleBlogPost from './components/public/blog/SinglePost';
+
+
 export default {
     mode: 'hash',
 
@@ -45,5 +51,24 @@ export default {
             path: '/edit-post/:post_id',
             component: EditPost
         },
+
+
+
+        //public -frontend
+        {
+            path: '/',
+            component: PublicHome
+        },
+
+        {
+            path: '/blog',
+            component: AllBlogPosts
+        },
+
+        {
+            path: '/post/:post_id',
+            component: SingleBlogPost
+        },
+
     ]
 }

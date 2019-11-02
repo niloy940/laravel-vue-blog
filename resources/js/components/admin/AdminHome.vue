@@ -32,3 +32,9 @@
         </section>
     </div>
 </template>
+
+<script>
+  export default{
+    name: 'AdminHome',
+  }
+</script>

@@ -35,10 +35,10 @@
                           <td v-if="post.category">{{ post.category.name }}</td>
                           <td>{{ post.title | shortLength(20, "...")}}</td>
                           <td>{{ post.description | shortLength(30, "...") }}</td>
-                          <td><img class="imgsize" :src="post.photo"></td>
+                          <td><img class="imgsize" :src="imgPath(post.photo)"></td>
                           <td>
                             <form @submit.prevent="deletePost(post.id)">
-                              <a class="btn btn-primary rounded-circle" href="#">Edit</a>
+                              <router-link :to="`/edit-post/${post.id}`" class="btn btn-primary rounded-circle">Edit</router-link>
                               <button type="submit" class="btn btn-danger rounded-circle">Delete</button>
                             </form>
                           </td>
@@ -87,6 +87,10 @@
                   title: 'Post deleted successfully!'
                 });
               });
+          },
+
+          imgPath(image) {
+            return "upload_img/" + image;
           }
         },
 

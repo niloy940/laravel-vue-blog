@@ -47,6 +47,11 @@ class Post extends Model
         auth()->user()->posts()->create($attributes);
     }
 
+    public function updatePost($attributes)
+    {
+        $this->update($attributes);
+    }
+
     public function deletePost()
     {
         $this->delete();

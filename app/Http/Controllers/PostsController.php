@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +54,8 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $id = $post->id;
+        return $post->with('user', 'category')->where('id', $id)->first();
     }
 
     /**
@@ -72,7 +78,22 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $attributes = $post->validatePost($request);
+
+        if ($request->photo != $post->photo) {
+            $attributes['photo'] = $post->imageProcessing($request);
+
+            $up_folder_path = public_path() . "/upload_img/";
+            $image = $up_folder_path . $post->photo;
+
+            if (file_exists($image)) {
+                unlink($image);
+            }
+        } else {
+            $attributes['photo'] = $post->photo;
+        }
+
+        $post->updatePost($attributes);
     }
 
     /**
@@ -83,6 +104,12 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
+        $up_folder_path = public_path() . "/upload_img/";
+        $image = $up_folder_path . $post->photo;
+
+        if (file_exists($image)) {
+            unlink($image);
+        }
         $post->deletePost();
     }
 }
