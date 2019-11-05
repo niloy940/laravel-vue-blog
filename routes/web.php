@@ -27,6 +27,8 @@ Route::post('/categories', 'CategoriesController@store');
 Route::delete('/categories/{category}', 'CategoriesController@destroy');
 Route::patch('/categories/{category}', 'CategoriesController@update');
 Route::get('/categories/{category}', 'CategoriesController@show');
+Route::get('/categorypost/{category}', 'CategoriesController@showPosts');
 
 //post
 Route::resource('posts', 'PostsController');
+Route::get('/search', 'PostsController@searchPosts');

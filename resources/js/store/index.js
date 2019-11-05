@@ -5,6 +5,7 @@ export default {
     state: {
         categories: [],
         posts: [],
+        latest_posts: [],
         post: []
     },
 
@@ -15,6 +16,10 @@ export default {
 
         getPost(state) {
             return state.posts;
+        },
+
+        getLatestPost(state) {
+            return state.latest_posts;
         },
 
         getSinglePost(state) {
@@ -31,8 +36,20 @@ export default {
             Post.all(context, 'post');
         },
 
+        latestPosts(context) {
+            Post.all(context, 'latest');
+        },
+
         getPostById(context, id) {
             Post.get(context, id, 'singlePost');
+        },
+
+        getPostByCategory(context, id) {
+            Post.getByCat(context, id, 'getPostByCategoryId');
+        },
+
+        searchPost(context, keywords) {
+            Post.search(context, keywords, 'getPostBySearch')
         },
     },
 
@@ -45,8 +62,20 @@ export default {
             return state.posts = payload;
         },
 
+        latest(state, payload) {
+            return state.latest_posts = payload;
+        },
+
         singlePost(state, payload) {
             return state.post = payload;
+        },
+
+        getPostByCategoryId(state, payload) {
+            return state.posts = payload;
+        },
+
+        getPostBySearch(state, payload) {
+            return state.posts = payload;
         }
     },
 }

@@ -70,5 +70,10 @@ export default {
             component: SingleBlogPost
         },
 
+        {
+            path: '/categories/:category_id',
+            component: AllBlogPosts
+        },
+
     ]
 }

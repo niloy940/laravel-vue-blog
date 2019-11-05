@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class PostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index', 'show', 'searchPosts']);
     }
 
     /**
@@ -111,5 +112,17 @@ class PostsController extends Controller
             unlink($image);
         }
         $post->deletePost();
+    }
+
+
+    public function searchPosts(Post $post, Request $request)
+    {
+        $search = $request->get('s');
+
+        return $post
+            ->with('user', 'category')
+            ->where('title', 'LIKE', "%$search%")
+            ->orWhere('description', 'LIKE', "%$search%")
+            ->get();
     }
 }

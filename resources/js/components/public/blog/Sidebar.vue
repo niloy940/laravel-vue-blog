@@ -4,14 +4,14 @@
             <aside class="right-sidebar">
               <div class="widget">
                 <form class="form-search">
-                  <input placeholder="Type something" type="text" class="input-medium search-query">
-                  <button type="submit" class="btn btn-square btn-theme">Search</button>
+                  <input @keydown="instantSearch" v-model="keyword" placeholder="Type something" type="text" class="input-medium search-query">
+                  <button type="submit" @click.prevent="instantSearch" class="btn btn-square btn-theme">Search</button>
                 </form>
               </div>
               <div class="widget">
                 <h5 class="widgetheading">Categories</h5>
                 <ul v-for="category in getAllCategory" class="cat">
-                  <li><i class="icon-angle-right"></i><a href="#">{{ category.name }}</a><span> (20)</span></li>
+                  <li><i class="icon-angle-right"></i><router-link :to="`/categories/${category.id}`">{{ category.name }}</router-link><span> (20)</span></li>
                 </ul>
               </div>
 
@@ -20,7 +20,7 @@
                 <ul v-for="(post, index) in getAllPost" class="recent">
                   <li v-if="index<5">
                     <img :src="`/upload_img/${post.photo}`" class="pull-left" alt="" height="40" width="40" />
-                    <h6><a href="#">{{ post.title }}</a></h6>
+                    <h6><router-link :to="`/post/${post.id}`">{{ post.title }}</router-link></h6>
                     <p>
                       {{ post.description | shortLength(100, '...') }}
                     </p>
@@ -36,9 +36,15 @@
     export default {
         name: 'Sidebar',
 
+        data() {
+          return {
+            keyword: ''
+          };
+        },
+
         mounted() {
           this.$store.dispatch('allCategory');
-          this.$store.dispatch('allPost');
+          this.$store.dispatch('latestPosts');
         },
 
         computed: {
@@ -47,8 +53,18 @@
           },
 
           getAllPost() {
-            return this.$store.getters.getPost;
+            return this.$store.getters.getLatestPost;
           }
+        },
+
+        methods: {
+          instantSearch:_.debounce(function () {
+            this.$store.dispatch('searchPost', this.keyword);
+          }, 1000)
+
+          // instantSearch() {
+          //     this.$store.dispatch('searchPost', this.keyword);
+          // }
         },
 
         filters: {

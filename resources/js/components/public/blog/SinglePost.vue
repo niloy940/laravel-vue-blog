@@ -73,7 +73,7 @@
         },
 
         mounted() {
-          this.$store.dispatch('getPostById', this.$route.params.post_id);
+          this.getPost();
         },
 
         computed: {
@@ -83,7 +83,15 @@
         },
 
         methods: {
+          getPost() {
+            this.$store.dispatch('getPostById', this.$route.params.post_id);
+          }
+        },
 
+        watch: {
+          $route(to, from) {
+            this.getPost();
+          }
         }
     }
 </script>

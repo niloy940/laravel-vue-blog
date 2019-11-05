@@ -9,7 +9,7 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show', 'showPosts']);
     }
 
     /**
@@ -98,5 +98,10 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->deleteCategory();
+    }
+
+    public function showPosts(Category $category)
+    {
+        return $category->posts()->with('user', 'category')->latest()->get();
     }
 }
