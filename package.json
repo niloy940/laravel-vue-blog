@@ -27,7 +27,7 @@
     "dependencies": {
         "@toast-ui/vue-editor": "^1.1.1",
         "admin-lte": "^3.0.0-rc.4",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "sweetalert2": "^8.18.3",
         "vform": "^1.0.1",
         "vue": "^2.6.10",
